@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView bottom =  (Button) findViewById(R.id.button);
         final TextView textView1 =  findViewById(R.id.textView1);
-        final EditText input_text = (EditText) findViewById(R.id.input_text); //comment
+        final EditText input_text = (EditText) findViewById(R.id.input_text); 
 
         bottom.setOnClickListener(new View.OnClickListener() {
             @Override
