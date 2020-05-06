@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 todo.setDone();
                 adapter.setTodos(listOfTodos);
 
-                Toast.makeText(getApplicationContext(),"clickedddd", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"activity is done", Toast.LENGTH_SHORT).show();
 
             }
         });
