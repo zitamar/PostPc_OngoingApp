@@ -47,8 +47,7 @@ class todoAdapter: RecyclerView.Adapter<TodoHolder>() {
 
         val todo = _todos[position]
         holder.text.setText(todo.message)
-//        holder.text.setTextSize(if (todo.isDone)  0.7f
-//                else 1.0f);
+
         holder.itemView.setOnClickListener{
             todoclickListener?.onTodoClicked(todo)
 

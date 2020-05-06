@@ -19,6 +19,8 @@ import java.util.List;
 
 import static com.example.postpc_ongoingapp.TodoKt.createTodo;
 
+//import static com.example.postpc_ongoingapp.TodoKt.createTodo;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -68,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.setTodoclickListener(new TodoClickListener() {
             @Override
             public void onTodoClicked(Todo todo) {
+                if (todo.isDone())
+                {
+                    return;
+                }
+                todo.setDone();
+                adapter.setTodos(listOfTodos);
+
                 Toast.makeText(getApplicationContext(),"clickedddd", Toast.LENGTH_SHORT).show();
 
             }

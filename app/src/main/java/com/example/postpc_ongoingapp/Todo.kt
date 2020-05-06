@@ -9,6 +9,7 @@ data class Todo( val message: String, var isDone: Boolean):Parcelable{
             parcel.readByte() != 0.toByte()) {
     }
 
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(message)
         parcel.writeByte(if (isDone) 1 else 0)
@@ -16,6 +17,11 @@ data class Todo( val message: String, var isDone: Boolean):Parcelable{
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    fun setDone() {
+        this.isDone;
+
     }
 
     companion object CREATOR : Parcelable.Creator<Todo> {
