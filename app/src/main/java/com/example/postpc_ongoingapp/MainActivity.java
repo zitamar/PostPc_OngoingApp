@@ -24,7 +24,14 @@ import static com.example.postpc_ongoingapp.TodoKt.createTodo;
 public class MainActivity extends AppCompatActivity {
 
 
-    List<Todo>  listOfTodos = new ArrayList<>();
+    //List<Todo>  listOfTodos = new ArrayList<>();
+    private TodoApp app;
+    private TodosListManager listManager;
+    EditText input_text ;
+
+
+
+
 
 
 
@@ -32,17 +39,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) { // if bundle not null insert the parcebel list
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        app = (TodoApp) getApplicationContext();
+        listManager = app.todos;
 
 
         //final TextView textView1 =  findViewById(R.id.textView1);
-        final EditText input_text = (EditText) findViewById(R.id.input_text);
+        input_text = (EditText) findViewById(R.id.input_text);
         final todoAdapter adapter = new todoAdapter();
         final RecyclerView recyclerView = findViewById(R.id.RecycleView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, recyclerView.VERTICAL,
                 false));
-        listOfTodos = createTodo();
-        adapter.setTodos(listOfTodos);
+        //listOfTodos = createTodo();
+        adapter.setTodos(listManager.todos);
         final TextView adButton =  (Button) findViewById(R.id.button);
         adButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
 //
 //                textView1.setVisibility(View.VISIBLE);
 
-                listOfTodos.add(new Todo(textToView,false));
-                adapter.setTodos(listOfTodos);
+                listManager.addTodo(textToView);
+                adapter.setTodos(listManager.getList());
 
 
             }
@@ -75,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 todo.setDone();
-                adapter.setTodos(listOfTodos);
+                adapter.setTodos(listManager.getList());
 
                 Toast.makeText(getApplicationContext(),"activity is done", Toast.LENGTH_SHORT).show();
 
@@ -92,6 +101,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("key",new ArrayList<>(listOfTodos));
+        //outState.putString(getString(R.string.));
     }
 }
