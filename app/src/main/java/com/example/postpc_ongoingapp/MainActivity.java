@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -76,20 +77,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+
+
+
+
         adapter.setTodoclickListener(new TodoClickListener() {
             @Override
             public void onTodoClicked(Todo todo) {
-                if (todo.isDone())
-                {
-                    return;
+//                public void todoclickListener (Todo todo)
+//                {
+                    if (todo.isDone()) {
+                        return;
+                    }
+                    todo.setDone();
+                    adapter.setTodos(listManager.getList());
+
+
+                    Toast.makeText(getApplicationContext(), "activity is done", Toast.LENGTH_SHORT).show();
+
                 }
-                todo.setDone();
-                adapter.setTodos(listManager.getList());
 
-                Toast.makeText(getApplicationContext(),"activity is done", Toast.LENGTH_SHORT).show();
+//                public void onTodoLongClickListener(Todo todo)
+//                {
+//
+//                }
+//
 
-            }
         });
+
+
+
 
 
 
