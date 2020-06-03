@@ -5,14 +5,14 @@ import java.sql.Time;
 import com.google.firebase.Timestamp;
 public class Todo {
 
-    int id;
+    String id;
     String Content;
     Boolean isDone; // add date
     Timestamp timOfCreation ;
     Timestamp lastTimeEdited;
 
 
-    public Todo (int id, String content, Boolean isDone, Timestamp timOfCreation, Timestamp lastTimeEdited)
+    public Todo (String id, String content, Boolean isDone, Timestamp timOfCreation, Timestamp lastTimeEdited)
     {
         this.Content = content;
         this.id = id;
@@ -33,7 +33,7 @@ public class Todo {
         return this.Content;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -54,6 +54,7 @@ public class Todo {
     {
         this.timOfCreation = timeOfCreation;
     }
+    public void setContent (String content) {this.Content = content;}
 
 
 

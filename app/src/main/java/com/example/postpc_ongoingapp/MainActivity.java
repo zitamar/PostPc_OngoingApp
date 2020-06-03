@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.postpc_ongoingapp.TodoKt.createTodo;
+//import static com.example.postpc_ongoingapp.TodoKt.createTodo;
 
 //import static com.example.postpc_ongoingapp.TodoKt.createTodo;
 
@@ -85,24 +85,16 @@ public class MainActivity extends AppCompatActivity {
         adapter.setTodoclickListener(new TodoClickListener() {
             @Override
             public void onTodoClicked(Todo todo) {
-//                public void todoclickListener (Todo todo)
 //                {
-                    if (todo.isDone()) {
-                        return;
+                    if (todo.getIsDone()) {
+                        openDoneTodo(todo.getId());
                     }
-                    todo.setDone();
-                    adapter.setTodos(listManager.getList());
-
-
-                    Toast.makeText(getApplicationContext(), "activity is done", Toast.LENGTH_SHORT).show();
+                    else
+                    {
+                        openUndoneTodo(todo.getId());
+                    }
 
                 }
-
-//                public void onTodoLongClickListener(Todo todo)
-//                {
-//
-//                }
-//
 
         });
 

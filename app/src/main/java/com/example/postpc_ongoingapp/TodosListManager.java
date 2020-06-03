@@ -49,6 +49,7 @@ public class TodosListManager
         this.todos = new ArrayList<>();
         this.db = FirebaseFirestore.getInstance();
         this.todoIndex = 0;
+        loadTodos();
     }
 
     int length()
@@ -57,13 +58,36 @@ public class TodosListManager
     }
     void remove_todo(String documentID)
     {
-        //Map<String,Object> data = todosRef.document(documentID);
-        DocumentReference docref = db.collection(COLLECTION).document(documentID);
-        
+        for (Todo todo : todos)
+        {
+            if (todo.getId().equals(documentID))
+            {
+                todos.remove(todo);
+                todosRef.document(documentID).delete();
+                break;
+            }
+        }
+    }
 
 
+    void update_todo (String id, String content, Boolean isDone)
+    {
+        for (Todo todo : todos)
+        {
+            if (todo.getId().equals(id))
+            {
+                todo.setTodoDone(isDone);
+                todo.setContent(content);
+                todo.setLastTimeEdited(Timestamp.now());
+                todosRef.document(id).update(KEY_CONTENT,content,KEY_ISDONE,isDone,
+                        KEY_MODIFICATION,todo.getLastTimeEdited());
+            }
+        }
 
     }
+
+
+
 
 
     public void loadTodos()
@@ -78,7 +102,7 @@ public class TodosListManager
                             for (QueryDocumentSnapshot doc: task.getResult())
                             {
                                 Map<String, Object> currentTodo = doc.getData();
-                                todos.add(new Todo((int)currentTodo.get(KEY_INDEX),
+                                todos.add(new Todo((String)currentTodo.get(KEY_INDEX),
                                         (String)currentTodo.get(KEY_CONTENT),
                                         (Boolean)currentTodo.get(KEY_ISDONE),(Timestamp)currentTodo.get(KEY_CREATION),
                                         (Timestamp)currentTodo.get(KEY_MODIFICATION)));
@@ -104,14 +128,19 @@ public class TodosListManager
 
 
     }
-    public void addTodoToDB(String content)
+
+    ArrayList<Todo> getTodos()
+    {
+        return todos;
+    }
+    public void addTodoToDB(final String content)
     {
         final Timestamp time = Timestamp.now();
-        final Todo todo = new Todo (todoIndex, content, false,time,time);
+
         Map<String,Object> todoToAdd = new HashMap<>();
-        todoToAdd.put(KEY_CONTENT, todo.getContent());
-        todoToAdd.put(KEY_ISDONE, todo.getIsDone());
-        todoToAdd.put(KEY_INDEX, todo.getId());
+        todoToAdd.put(KEY_CONTENT, content);
+        todoToAdd.put(KEY_ISDONE, false);
+        //todoToAdd.put(KEY_INDEX, todo.getId());
         //todoToAdd.put(KEY_CREATION, todo.getTimOfCreation());
         //todoToAdd.put(KEY_MODIFICATION, todo.getLastTimeEdited());
 
@@ -120,6 +149,7 @@ public class TodosListManager
         db.collection("Todos").add(todoToAdd).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
+                final Todo todo = new Todo (documentReference.getId(), content, false,time,time);
                 todoIndex ++;
                 todos.add(todo);
             }
@@ -132,6 +162,11 @@ public class TodosListManager
         });
 
 
+    }
+
+    public ArrayList<Todo> getList()
+    {
+        return this.todos;
     }
 
 

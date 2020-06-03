@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">PostPc_OngoingApp</string>
+    <string name="creation">The todo has been created on</string>
+    <string name="modification">the todo has been modify on</string>
+    <string name="finishedTodo">Well done! Todo finished</string>
+    <string name="unfinished_todo">This todo is currently active</string>
+    <string name="content">The task is</string>
+    <string name="apply">Apply</string>
+    <string name="makeItDone">press to done</string>
+    <string name="makeUnDone">Press to deactivate</string>
+    <string name="delete">remove todo</string>
+
 </resources>
